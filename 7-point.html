@@ -1,0 +1,173 @@
+<!--
+Copyright (c) 2020, Dmytro Yeroshkin
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+disclaimer in the documentation and/or other materials provided with the distribution.
+
+* Neither the name of the <organization> nor the names of its contributors may be used to endorse or promote products
+derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/generators.js"></script>
+    <title>7-Point Story Structure Organizer</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        table.table-borderless tr td,
+        table.table-borderless tr th {
+            border-right: 1px solid black;
+            border-left: 1px solid black
+        }
+
+        :root {
+            --BLANK: lightgray;
+            --HOOK: #d9eaca;
+            --TP1: #bfe89d;
+            --PP1: #cadbfe;
+            --MID: #dce6fd;
+            --PP2: #cadbfe;
+            --TP2: #e6dafe;
+            --RES: #cfbbfe;
+        }
+    </style>
+</head>
+<body onload="startPlotGenerator()">
+<div class="container-fluid">
+    <ul class="nav nav-tabs" role="tablist" id="7point">
+        <li class="nav-item">
+            <a class="nav-link active" id="generator-tab" data-toggle="tab" href="#generator" role="tab"
+               aria-controls="generator">Plot Line Generator</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="table-tab" data-toggle="tab" href="#table" role="tab"
+               aria-controls="table">Table of Plot Lines</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="weave-tab" data-toggle="tab" href="#weave" role="tab"
+               aria-controls="weave" onclick="startOutlineGenerator()">Outline Generator</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" id="outline-tab" data-toggle="tab" href="#outline" role="tab"
+               aria-controls="outline" onclick="makeOutline()">Outline</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="7pointContent">
+        <div class="tab-pane fade show active" id="generator" role="tabpanel" aria-labelledby="generator-tab">
+            <div class="container">
+                <div class="row" id="help">
+                    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                        <p>
+                            The prompts below will guide you through generating plot threads using the 7-point plot
+                            structure. The generated table is always available in the "Table of Plot Lines" tab above.
+                            Once you have generated all the plot lines, you can use the "Outline Generator" tab to order
+                            the various bits into a more complete outline.
+                        </p>
+                        <p>
+                            You can press [ENTER] to submit, or [SHIFT]+[ENTER] to add a new line.
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="entry">
+                    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                        <h1 id="full">
+                            ENTRY NAME
+                        </h1>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <label for="plotItem" id="prompt">
+                            PROMPT
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 offset-lg-1">
+                        <textarea id="plotItem" name="plotItem" rows="5" cols="50" autofocus
+                                  onkeypress="textArea(event)"></textarea>
+                        <br>
+                        <input type="button" class="btn btn-primary" value="Submit" onclick="nextPlotGenerator()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="table" role="tabpanel" aria-labelledby="table-tab">
+            <table id="tbl7point" class="table table-borderless"
+                   style="border: 1px solid black; margin-top:5px; table-layout: fixed">
+                <thead class="thead-dark">
+                <tr id="HEADER">
+                    <th scope="col">Plot Point</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="HOOK" style="background: var(--HOOK)">
+                    <th scope="row">Hook</th>
+                </tr>
+                <tr id="TP1" style="background: var(--TP1)">
+                    <th scope="row">Turning Point 1</th>
+                </tr>
+                <tr id="PP1" style="background: var(--PP1)">
+                    <th scope="row">Pinch Point 1</th>
+                </tr>
+                <tr id="MID" style="background: var(--MID)">
+                    <th scope="row">Midpoint</th>
+                </tr>
+                <tr id="PP2" style="background: var(--PP2)">
+                    <th scope="row">Pinch Point 2</th>
+                </tr>
+                <tr id="TP2" style="background: var(--TP2)">
+                    <th scope="row">Turning Point 2</th>
+                </tr>
+                <tr id="RES" style="background: var(--RES)">
+                    <th scope="row">Resolution</th>
+                </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-success" onclick="downloadTableAsTSV('tbl7point', 'plot_lines.csv')">
+                Download
+            </button>
+        </div>
+        <div class="tab-pane fade" id="weave" role="tabpanel" aria-labelledby="weave-tab">
+            <table id="tblNext" class="table table-borderless" style="border: 1px solid black; table-layout: fixed">
+            </table>
+            <div class="container">
+                <div class="row">
+                    <input type="button" class="btn btn-primary" value="Next Item" onclick="submitOutlineGenerator()">
+                    <input type="button" class="btn btn-danger pull-right" style="margin-right: 0; margin-left: auto"
+                           value="Reset Outline" onclick="clearOutline()">
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="outline" role="tabpanel" aria-labelledby="outline-tab">
+            <table id="tblOutline" class="table table-bordered table-striped"
+                   style="border: 1px solid black; table-layout: fixed">
+            </table>
+            <button class="btn btn-success" onclick="downloadTableAsTSV('tblOutline', 'outline.csv')">
+                Download
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
