@@ -91,16 +91,18 @@ function nextPlotGenerator() {
     partial[prompts[cur]['key']] = plotitem.val().replaceAll('\n', '<br>');
     cur++;
     if (cur === prompts.length) {
-        partial['STAGE'] = 0
-        plots.push(partial);
+        partial['STAGE'] = 0;
         for (const [key, value] of Object.entries(partial)) {
             if (key === 'HEADER') {
-                $('#' + key).append('<th scope="col">' + value + '</th>');
+                $('#' + key).append('<th scope="col" id="HEADER-' + plots.length + '">' + value + '</th>');
             } else {
-                $('#' + key).append('<td>' + value + '</td>');
+                $('#' + key).append('<td id="' + key + '-' + plots.length + '">' + value + '</td>');
             }
-            startPlotGenerator();
         }
+        $('#EDIT').append('<td><button id="EDIT-' + plots.length + '" class="btn btn-primary"' +
+            'onclick="editPlot(' + plots.length + ')">Edit Plot Line</button></td>');
+        plots.push(partial);
+        startPlotGenerator();
     } else {
         $('#full').text(prompts[cur]['full'] + ' of ' + partial['HEADER']);
         $('#prompt').html(prompts[cur]['prompt']);
@@ -219,15 +221,46 @@ function remakePlotTable() {
         '                </tr>\n' +
         '                <tr id="RES" style="background: var(--RES)">\n' +
         '                    <th scope="row">Resolution</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="EDIT">\n' +
+        '                    <th scope="row">Edit</th>\n' +
         '                </tr>');
 
     for (var i = 0; i < plots.length; i++) {
         for (const [key, value] of Object.entries(plots[i])) {
             if (key === 'HEADER') {
-                $('#' + key).append('<th scope="col">' + value + '</th>');
+                $('#' + key).append('<th scope="col" id="HEADER-' + i + '">' + value + '</th>');
             } else {
-                $('#' + key).append('<td>' + value + '</td>');
+                $('#' + key).append('<td id="' + key + '-' + i + '">' + value + '</td>');
             }
         }
+        $('#EDIT').append('<td><button id="EDIT-' + i + '" class="btn btn-primary" onclick="editPlot(' + i + ')">' +
+            'Edit Plot Line</button></td>')
     }
+}
+
+function editPlot(n) {
+    $('#EDIT-' + n).attr('onclick', 'savePlot(' + n + ')');
+    $('#EDIT-' + n).text('Save Plot Line');
+    $('#HEADER-' + n).html('<textarea id="EDIT-HEADER-' + n + '" style="width: 100%" rows="2" autofocus>' +
+        plots[n]['HEADER'].replaceAll('<br>','\n') + '</textarea>');
+    for (var i = 0; i < parts.length; i++) {
+        const key = parts[i];
+        $('#' + key + '-' + n).html('<textarea id="EDIT-' + key + '-' + n +
+            '" style="width: 100%" rows="3" autofocus>' + plots[n][key].replaceAll('<br>','\n') + '</textarea>');
+    }
+}
+
+function savePlot(n) {
+    $('#EDIT-' + n).attr('onclick', 'editPlot(' + n + ')');
+    $('#EDIT-' + n).text('Edit Plot Line');
+    plots[n]['HEADER'] = $('#EDIT-HEADER-' + n).val().replaceAll('\n', '<br>');
+    $('#HEADER-' + n).html(plots[n]['HEADER']);
+    for (var i = 0; i < parts.length; i++) {
+        const key = parts[i];
+        plots[n][key] = $('#EDIT-' + key + '-' + n).val().replaceAll('\n', '<br>');
+        $('#' + key + '-' + n).html(plots[n][key]);
+    }
+
+    makeOutline();
 }

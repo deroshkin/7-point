@@ -69,6 +69,12 @@ You may choose to leave any/all blank, although this will cause some inconvenien
 
 As soon as you finish a plot line, it will be added to the "Table of Plot Lines" tab.
 
+#### Editing plot lines
+
+The "Table of Plot Lines" tab now has "Edit Plot Line" buttons along the bottom of the table. Clicking one will make
+all the items in that plot line editable, and rename the button into "Save Plot Line". Clicking the updated button will
+save any changes made, and if necessary those changes will propagate into the "Outline Generator" and "Outline" tabs. 
+
 #### Layering the plot lines
 
 Once you have one or more plot lines created, you may want to figure out how to order the various steps. The app comes
@@ -189,6 +195,5 @@ There are a few changes I would like to implement in the near future, as the cur
 The following ideas are arranged roughly in the order from easiest to hardest, and as such from most likely to least
 likely to be implemented in the near future:
 
-1. Allow editing of the plot lines - most likely via an edit button under the plot line in the table
-3. Allow finer changes of outline than the current option of reset all - may be possible via draggables
-4. Provide a better formatted download - this requires creating a spreadsheet in one of the standard formats
+1. Allow finer changes of outline than the current option of reset all - may be possible via draggables
+1. Provide a better formatted download - this requires creating a spreadsheet in one of the standard formats

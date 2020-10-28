@@ -5,7 +5,9 @@
 ### New Features
 
 * Export all data as a json file and load from a json file.
-* The Outline table is now an honest striped table where there is no plot item listed, used to be only for  
+* The Outline table is now an honest striped table where there is no plot item listed, used to be only for
+* Introduced the ability to edit plot lines in the "Table of Plot Lines" tab, any changes will automatically propagate
+to both the "Outline Generator" and the "Outline" tabs
 
 ### Bugfixes
 
