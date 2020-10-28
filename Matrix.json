@@ -1,0 +1,164 @@
+{
+  "plots": [
+    {
+      "HEADER": "Action",
+      "RES": "Neo defeats the Agents",
+      "HOOK": "Neo is a shlumpy underachiever",
+      "MID": "Neo escapes the Matrix",
+      "TP1": "Neo learns about the Matrix",
+      "TP2": "Neo becomes the One",
+      "PP1": "Agents kidnap Neo",
+      "PP2": "Morpheus is captured",
+      "STAGE": 7
+    },
+    {
+      "HEADER": "Character",
+      "RES": "Neo becomes the One",
+      "HOOK": "Neo is a shlumpy underachiever",
+      "MID": "Neo meets the Oracle",
+      "TP1": "Morpheus tells Neo he is the One",
+      "TP2": "Neo realizes the power is in him",
+      "PP1": "Neo is the wimpy new guy; can't do anything",
+      "PP2": "Oracle tells Neo he's not the One",
+      "STAGE": 7
+    },
+    {
+      "HEADER": "Romance",
+      "RES": "Trinity falls in love with Neo",
+      "HOOK": "Neo is alone",
+      "MID": "Neo falls in love with Trinity",
+      "TP1": "Neo meets Trinity",
+      "TP2": "Neo risks his life to save Trinity and Morpheus",
+      "PP1": "Trinity isn't interested in Neo",
+      "PP2": "Trinity won't open up, Neo thinks she loves someone else",
+      "STAGE": 7
+    },
+    {
+      "HEADER": "Betrayal",
+      "RES": "Cypher betrays Morpheus and kills the crew",
+      "HOOK": "Cypher is their friend",
+      "MID": "Cypher tells the Agents where they are",
+      "TP1": "Cypher makes a deal with the Agents",
+      "TP2": "Cypher attacks in the real world",
+      "PP1": "Crew discovers an unauthorized trip into the Matrix",
+      "PP2": "Neo spots the trap, they try to escape",
+      "STAGE": 7
+    }
+  ],
+  "plotTable": [
+    [
+      "HOOK",
+      "HOOK",
+      "HOOK",
+      ""
+    ],
+    [
+      "TP1",
+      "",
+      "TP1",
+      ""
+    ],
+    [
+      "PP1",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MID",
+      "TP1",
+      "",
+      "HOOK"
+    ],
+    [
+      "",
+      "PP1",
+      "PP1",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "TP1"
+    ],
+    [
+      "",
+      "",
+      "",
+      "PP1"
+    ],
+    [
+      "",
+      "MID",
+      "",
+      ""
+    ],
+    [
+      "",
+      "PP2",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "MID",
+      ""
+    ],
+    [
+      "",
+      "",
+      "PP2",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "MID"
+    ],
+    [
+      "",
+      "",
+      "",
+      "PP2"
+    ],
+    [
+      "",
+      "",
+      "",
+      "TP2"
+    ],
+    [
+      "PP2",
+      "",
+      "",
+      "RES"
+    ],
+    [
+      "",
+      "",
+      "TP2",
+      ""
+    ],
+    [
+      "",
+      "TP2",
+      "",
+      ""
+    ],
+    [
+      "TP2",
+      "RES",
+      "RES",
+      ""
+    ],
+    [
+      "RES",
+      "",
+      "",
+      ""
+    ]
+  ]
+}
