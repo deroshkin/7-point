@@ -41,14 +41,16 @@ Download the following files:
 * 7-point.html
 * js
     * generators.js
+    * file_ops.js
     * bootstrap.min.js
     * jquery-3.5.1.slim.min.js
 * css
     * bootstrap.min.css
     
-The files 7-point.html and generators.js are created by me solely for this app. The other 3 are standard libraries
-readily available online and used by a multitude of websites, provided here with no modifications. I chose to provide
-them here, rather than linking to online versions, so that the app requires absolutely no internet connectivity to run.
+The files 7-point.html, generators.js and file_ops.js are created by me solely for this app. The other 3 are standard
+libraries readily available online and used by a multitude of websites, provided here with no modifications. I chose to
+provide them here, rather than linking to online versions, so that the app requires absolutely no internet connectivity
+to run.
 
 ### Running
 
@@ -90,7 +92,16 @@ it will _NOT_ do anything to the plot lines you've entered.
 
 In both the "Table of Plot Lines" and "Outline" tabs, beneath the auto-generated table you will see a "Download" button.
 This will allow you to save the corresponding table as a .csv file. Any spreadsheet program (Excel, LibreOffice Calc,
-Google Sheets, etc.) should be able to open it. The file is tab-separated.
+Google Sheets, etc.) should be able to open it. The file is tab-separated, and uses double quotes (") as string
+delimiters.
+
+### Saving/Loading your data
+
+You can now save your work as a JSON file, and upload it later to resume work. This saves all of your completed plot
+lines and all work on layering them. WARNING: any plot lines that you are in the process of entering will NOT be saved.
+
+Since the JSON file is just a specially formatted text file, you can even make changes before re-uploading. If you
+choose to do so, please familiarize yourself with the details of how it is structured, which are listed below.
 
 ## Screenshots
 
@@ -111,13 +122,73 @@ to modify:
 2. Order in which the 7 points are asked: simply reorder the items in the prompts variable.
 CAUTION: more changes are needed if you want to move the position of the first element (name of the plot line)
 
+### JSON structure
+
+Below is a sample JSON file:
+
+```
+{
+  "plots": [
+    {
+      "HEADER": "My simple plot",
+      "RES": "Hooray!!!",
+      "HOOK": "Life is so quiet",
+      "MID": "I need to change",
+      "TP1": "Huh, what's that?",
+      "TP2": "Aha!",
+      "PP1": "Oh NO!",
+      "PP2": "We're all DOOOMED",
+      "STAGE": 7
+    }
+  ],
+  "plotTable": [
+    [
+      "HOOK"
+    ],
+    [
+      "TP1"
+    ],
+    [
+      ""
+    ],
+    [
+      "PP1"
+    ],
+    [
+      "MID"
+    ],
+    [
+      "PP2"
+    ],
+    [
+      "TP2"
+    ],
+    [
+      "RES"
+    ]
+  ]
+}
+```
+
+A more complicated example, corresponding to the Matrix plot analysis by Dan Wells, is provided in the repository.
+
+It is organized as {"plots":[], "plotTable":[]}. In the plots list, each plot line is represented as a dictionary with
+the following 9 keys:
+* "HEADER" - The title of the plot line
+* "HOOK","TP1","PP1","MID","PP2","TP2","RES" - The 7-point plot structure
+* "STAGE" - How many of the 7 points have been included into the outline layering so far.
+
+The plotTable list is a list of lists, each inner list corresponds to a scene, and should have the same length as the
+number of plot lines, and contain the keys ("HOOK","TP1","PP1","MID","PP2","TP2","RES") of which plot point of the
+corresponding plot line is happening in that scene, alternatively an empty string if no plot points of that plot line
+are happening.
+
 ## Planned Future Changes
 
 There are a few changes I would like to implement in the near future, as the current version was written in a few hours.
 The following ideas are arranged roughly in the order from easiest to hardest, and as such from most likely to least
 likely to be implemented in the near future:
 
-1. Allow editing of the plot lines - most likely via an edit button under the plot line in the table 
-2. Allow save/load of all work - most likely via json export/import
+1. Allow editing of the plot lines - most likely via an edit button under the plot line in the table
 3. Allow finer changes of outline than the current option of reset all - may be possible via draggables
-4. Provide a better formatted download - this requires creating a spreadsheet in one of the standard formats 
+4. Provide a better formatted download - this requires creating a spreadsheet in one of the standard formats

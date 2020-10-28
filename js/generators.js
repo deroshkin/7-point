@@ -88,7 +88,7 @@ function startPlotGenerator() {
 
 function nextPlotGenerator() {
     var plotitem = $('#plotItem');
-    partial[prompts[cur]['key']] = plotitem.val().replace('\n','<br>');
+    partial[prompts[cur]['key']] = plotitem.val().replaceAll('\n', '<br>');
     cur++;
     if (cur === prompts.length) {
         partial['STAGE'] = 0
@@ -99,8 +99,8 @@ function nextPlotGenerator() {
             } else {
                 $('#' + key).append('<td>' + value + '</td>');
             }
+            startPlotGenerator();
         }
-        startPlotGenerator();
     } else {
         $('#full').text(prompts[cur]['full'] + ' of ' + partial['HEADER']);
         $('#prompt').html(prompts[cur]['prompt']);
@@ -112,13 +112,7 @@ var plotTable = [];
 
 function startOutlineGenerator() {
     var i;
-    if (plotTable.length === 0) {
-        plotTable.push([]);
-        for (i = 0; i < plots.length; i++) {
-            plotTable[0].push(plots[i]['HEADER']);
-        }
-        $('#outline-tab').removeClass('disabled');
-    }
+    $('#outline-tab').removeClass('disabled');
     $('#tblNext').html('<thead class="thead-dark"><tr id="plotName">\n' +
         '                    <th>Plot item name</th>\n' +
         '                </tr></thead>\n' +
@@ -146,13 +140,10 @@ function submitOutlineGenerator() {
     plotTable.push([])
     for (var i = 0; i < plots.length; i++) {
         if ($('#plotLine' + i).is(':checked')) {
-            plotTable[plotTable.length - 1].push({
-                'text': plots[i][parts[plots[i]['STAGE']]],
-                'key': parts[plots[i]['STAGE']]
-            });
+            plotTable[plotTable.length - 1].push(parts[plots[i]['STAGE']]);
             plots[i]['STAGE']++;
         } else {
-            plotTable[plotTable.length - 1].push({'text':'','key':'BLANK'});
+            plotTable[plotTable.length - 1].push('');
         }
     }
 
@@ -161,16 +152,21 @@ function submitOutlineGenerator() {
 
 function makeOutline() {
     var i;
-    $('#tblOutline').html('<thead class="thead-dark"><tr id="plotNames"><th scope="col">Scene</th></tr></thead>' +
+    $('#tblOutline').html('<thead class="thead-dark"><tr id="plotNames">' +
+        '<th scope="col" style="width: 5rem">Scene</th></tr></thead>' +
         '<tbody id="tblOutlineBody"></tbody>');
     for (i = 0; i < plots.length; i++) {
-        $('#plotNames').append('<th scope="col">' + plotTable[0][i] + '</th>')
+        $('#plotNames').append('<th scope="col">' + plots[i]['HEADER'] + '</th>')
     }
-    for (i = 1; i < plotTable.length; i++) {
-        $('#tblOutlineBody').append('<tr id="tblOutlineRow' + i + '"><th scope="row">' + i + '</th></tr>');
+    for (i = 0; i < plotTable.length; i++) {
+        $('#tblOutlineBody').append('<tr id="tblOutlineRow' + i + '"><th scope="row">' + (i + 1) + '</th></tr>');
         for (var j = 0; j < plots.length; j++) {
-            $('#tblOutlineRow' + i).append('<td style="background: var(--' + plotTable[i][j]['key'] + ')">' +
-                plotTable[i][j]['text'] + '</td>');
+            if (plotTable[i][j] === '') {
+                $('#tblOutlineRow' + i).append('<td></td>')
+            } else {
+                $('#tblOutlineRow' + i).append('<td style="background: var(--' + plotTable[i][j] + ')">' +
+                    plots[j][plotTable[i][j]] + '</td>');
+            }
         }
     }
 }
@@ -194,33 +190,44 @@ function textArea(e) {
     }
 }
 
-function exportTableToTSV(table) {
-    var tsv = [];
-    var rows = $('#' + table)[0].rows;
+function remakePlotTable() {
+    // Re-initialize the plot lines table to its default
+    $('#tbl7point').html('\n' +
+        '                <thead class="thead-dark">\n' +
+        '                <tr id="HEADER">\n' +
+        '                    <th scope="col">Plot Point</th>\n' +
+        '                </tr>\n' +
+        '                </thead>\n' +
+        '                <tbody>\n' +
+        '                <tr id="HOOK" style="background: var(--HOOK)">\n' +
+        '                    <th scope="row">Hook</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="TP1" style="background: var(--TP1)">\n' +
+        '                    <th scope="row">Turning Point 1</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="PP1" style="background: var(--PP1)">\n' +
+        '                    <th scope="row">Pinch Point 1</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="MID" style="background: var(--MID)">\n' +
+        '                    <th scope="row">Midpoint</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="PP2" style="background: var(--PP2)">\n' +
+        '                    <th scope="row">Pinch Point 2</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="TP2" style="background: var(--TP2)">\n' +
+        '                    <th scope="row">Turning Point 2</th>\n' +
+        '                </tr>\n' +
+        '                <tr id="RES" style="background: var(--RES)">\n' +
+        '                    <th scope="row">Resolution</th>\n' +
+        '                </tr>');
 
-    for (var i = 0; i < rows.length; i++) {
-        var row = [], cols = rows[i].querySelectorAll("td, th");
-
-        for (var j = 0; j < cols.length; j++)
-            row.push(cols[j].innerText);
-
-        tsv.push(row.join("\t"));
+    for (var i = 0; i < plots.length; i++) {
+        for (const [key, value] of Object.entries(plots[i])) {
+            if (key === 'HEADER') {
+                $('#' + key).append('<th scope="col">' + value + '</th>');
+            } else {
+                $('#' + key).append('<td>' + value + '</td>');
+            }
+        }
     }
-
-    return tsv.join('\n')
-}
-
-function downloadTableAsTSV(table, filename){
-    var tsv = exportTableToTSV(table);
-
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain,' + encodeURIComponent(tsv));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
 }

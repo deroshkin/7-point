@@ -29,6 +29,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/generators.js"></script>
+    <script src="js/file_ops.js"></script>
     <title>7-Point Story Structure Organizer</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
@@ -39,7 +40,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         }
 
         :root {
-            --BLANK: lightgray;
+            --BLANK: None;
             --HOOK: #d9eaca;
             --TP1: #bfe89d;
             --PP1: #cadbfe;
@@ -163,6 +164,31 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <button class="btn btn-success" onclick="downloadTableAsTSV('tblOutline', 'outline.csv')">
                 Download
             </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+<hr>
+
+<div class="container" id="fops">
+    <div class="text-center">
+            <h4>Save/Load Operations</h4>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <button class="btn btn-info mb-3" onclick="exportJSON('plotting.json')">Save work as JSON
+            </button>
+        </div>
+        <div class="col-12 col-md-8 col-lg-7 offset-lg-1">
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="loadJSON" aria-describedby="loadJSON"
+                           onchange="loadJSON('loadJSON')">
+                    <label class="custom-file-label" for="loadJSON">Select a JSON file to load</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>
