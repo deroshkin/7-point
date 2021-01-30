@@ -34,9 +34,13 @@ As such, that is the order implemented in this app.
 
 ## How to use this app
 
+### Running it Online
+
+You can run this app online on [github.io](https://deroshkin.github.io/7-point/7-point.html)
+
 ### Installing
 
-Download the following files:
+Alternatively, you can download the following files from the [project repository](https://github.com/deroshkin/7-point):
 
 * 7-point.html
 * js
@@ -49,8 +53,8 @@ Download the following files:
     
 The files 7-point.html, generators.js and file_ops.js are created by me solely for this app. The other 3 are standard
 libraries readily available online and used by a multitude of websites, provided here with no modifications. I chose to
-provide them here, rather than linking to online versions, so that the app requires absolutely no internet connectivity
-to run.
+provide them here, rather than linking to online versions, so that the downloaded app requires absolutely no internet
+connectivity to run.
 
 ### Running
 
