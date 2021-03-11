@@ -163,6 +163,7 @@ function makeOutline() {
     for (i = 0; i < plotTable.length; i++) {
         $('#tblOutlineBody').append('<tr id="tblOutlineRow' + i + '"><th scope="row">' + (i + 1) + '</th></tr>');
         for (var j = 0; j < plots.length; j++) {
+            //console.log("Looking at row " + i + " column " + j + ". The corresponding table entry is " + plotTable[i][j] + " which is " + plots[j][plotTable[i][j]])
             if (plotTable[i][j] === '') {
                 $('#tblOutlineRow' + i).append('<td></td>')
             } else {
@@ -171,6 +172,32 @@ function makeOutline() {
             }
         }
     }
+
+    $(function () {
+        $("#tblOutlineBody").sortable({
+            update: function ( event, ui) {}
+        });
+
+        $("#tblOutlineBody").on("sortupdate", function( event, ui){
+            reorder();
+        })
+    });
+
+
+}
+
+function reorder(){
+    var newTable = [];
+
+    $("#tblOutlineBody tr").each(function() {
+        //$this = $(this);
+        var id = $(this).find("th").html() - 1;
+        newTable.push(plotTable[id]);
+    });
+
+    plotTable = newTable;
+
+    makeOutline();
 }
 
 function clearOutline() {

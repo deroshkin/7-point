@@ -34,7 +34,11 @@ As such, that is the order implemented in this app.
 
 ## How to use this app
 
-### Installing
+### Running it Online
+
+You can run this app online on [github.io](https://deroshkin.github.io/7-point/7-point.html)
+
+### Using Locally
 
 Download the following files:
 
@@ -43,16 +47,18 @@ Download the following files:
     * generators.js
     * file_ops.js
     * bootstrap.min.js
-    * jquery-3.5.1.slim.min.js
+    * jquery-3.6.0.min.js
+    * jquery-ui.min.js
 * css
     * bootstrap.min.css
+    * jquery-ui.min.css
     
-The files 7-point.html, generators.js and file_ops.js are created by me solely for this app. The other 3 are standard
-libraries readily available online and used by a multitude of websites, provided here with no modifications. I chose to
-provide them here, rather than linking to online versions, so that the app requires absolutely no internet connectivity
-to run.
+The files 7-point.html, generators.js and file_ops.js are created by me solely for this app. The other files are
+standard libraries readily available online and used by a multitude of websites, provided here with no modifications.
+I chose to provide them here, rather than linking to online versions, so that the app requires absolutely no internet
+connectivity to run.
 
-### Running
+### Running the app
 
 Open 7-point.html in your favorite browser. You will see 4 tabs: "Plot Line Generator", "Table of Plot Lines",
 "Outline Generator", and "Outline", the last of which will be grayed out until the first time you click on the
@@ -94,6 +100,13 @@ points for the plot lines you created.
 In this tab you also have access to a "Reset Outline" button which will clear all choice you made in the outline, but
 it will _NOT_ do anything to the plot lines you've entered.
 
+### Editing your outline
+
+Once an outline is generated, or [loaded](#savingloading-your-data), you can reorder the items by simply dragging the
+rows of the table. These changes are immediately applied, and the rows are renumbered appropriately.
+
+**CAUTION:** You can get the 7 points of a plot line out of order this way.
+
 ### Downloading your outline
 
 In both the "Table of Plot Lines" and "Outline" tabs, beneath the auto-generated table you will see a "Download" button.
@@ -107,7 +120,7 @@ You can now save your work as a JSON file, and upload it later to resume work. T
 lines and all work on layering them. WARNING: any plot lines that you are in the process of entering will NOT be saved.
 
 Since the JSON file is just a specially formatted text file, you can even make changes before re-uploading. If you
-choose to do so, please familiarize yourself with the details of how it is structured, which are listed below.
+choose to do so, please familiarize yourself with the details of how it is [structured](#json-structure).
 
 ## Screenshots
 
@@ -195,5 +208,4 @@ There are a few changes I would like to implement in the near future, as the cur
 The following ideas are arranged roughly in the order from easiest to hardest, and as such from most likely to least
 likely to be implemented in the near future:
 
-1. Allow finer changes of outline than the current option of reset all - may be possible via draggables
 1. Provide a better formatted download - this requires creating a spreadsheet in one of the standard formats

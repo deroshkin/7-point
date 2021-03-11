@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3/11/2021
+
+### New Features
+
+* Ability to reorder the outline
+
+### Under the Hood
+
+* Migrated to jQuery 3.6.0 (also moved from slim to full for jquery-ui compatibility)
+
 ## 10/28/2020
 
 ### New Features

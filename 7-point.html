@@ -26,12 +26,16 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/generators.js"></script>
     <script src="js/file_ops.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <title>7-Point Story Structure Organizer</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+
+
     <style>
         table.table-borderless tr td,
         table.table-borderless tr th {
@@ -50,6 +54,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             --RES: #cfbbfe;
         }
     </style>
+<!--    <script>-->
+<!--        $(function () {-->
+<!--            $("#tblOutline tbody").sortable();-->
+<!--            //$("#tblOutline tbody").disableSelection();-->
+<!--        })-->
+<!--    </script>-->
 </head>
 <body onload="startPlotGenerator()">
 <div class="container-fluid">
