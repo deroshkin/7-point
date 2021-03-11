@@ -40,7 +40,7 @@ You can run this app online on [github.io](https://deroshkin.github.io/7-point/7
 
 ### Using Locally
 
-Download the following files:
+Alternatively, you can download the following files from the [project repository](https://github.com/deroshkin/7-point):
 
 * 7-point.html
 * js
@@ -53,6 +53,7 @@ Download the following files:
     * bootstrap.min.css
     * jquery-ui.min.css
     
+
 The files 7-point.html, generators.js and file_ops.js are created by me solely for this app. The other files are
 standard libraries readily available online and used by a multitude of websites, provided here with no modifications.
 I chose to provide them here, rather than linking to online versions, so that the app requires absolutely no internet
