@@ -40,7 +40,7 @@ You can run this app online on [github.io](https://deroshkin.github.io/7-point/7
 
 ### Using Locally
 
-Download the following files:
+Alternatively, you can download the following files from the [project repository](https://github.com/deroshkin/7-point):
 
 * 7-point.html
 * js
